@@ -23,7 +23,7 @@ export const NAVBAR_HEIGHT_MOBILE = 77
 const Navbar = () => {
   const { theme } = useTheme()
   const { isConnected } = useAccount()
-  const isMobile = useMediaQuery({ query: '(max-width: 960px)' })
+  const isMobile = useMediaQuery({ query: '(max-width: 960px' })
   const isMounted = useMounted()
   const { routePrefix } = useMarketplaceChain()
 
@@ -82,8 +82,11 @@ const Navbar = () => {
       css={{
         height: NAVBAR_HEIGHT,
         px: '$5',
+        '@xl': {
+          px: '$6',
+        },
         width: '100%',
-        maxWidth: 1920,
+        // maxWidth: 1920,
         mx: 'auto',
         borderBottom: '1px solid $gray4',
         zIndex: 999,
@@ -100,12 +103,12 @@ const Navbar = () => {
         css={{
           flex: 'unset',
           '@bp1300': {
-            flex: 1,
+          flex: 1,
           },
         }}
       >
         <Flex align="center">
-          <Link href={`/${routePrefix}`}>
+          <Link href={`/`}>
             <Box css={{ cursor: 'pointer' }}>
               <Image
                 src="/reservoirLogo.svg"

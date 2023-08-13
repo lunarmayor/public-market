@@ -211,7 +211,7 @@ export const { createTheme, keyframes, styled, globalCss, getCssText } =
       sm: '(min-width: 600px)',
       md: '(min-width: 900px)',
       lg: '(min-width: 1200px)',
-      xl: '(min-width: 1400px)',
+      xl: '(min-width: 1820px)',
       bp300: '(min-width: 300px)',
       bp400: '(min-width: 400px)',
       bp500: '(min-width: 500px)',

@@ -115,6 +115,10 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
           '@bp800': {
             p: '$5',
           },
+
+          '@xl': {
+            px: '$6',
+          },
         }}
       >
         <Flex direction="column">

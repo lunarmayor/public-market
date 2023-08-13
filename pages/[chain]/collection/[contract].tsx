@@ -249,6 +249,10 @@ const CollectionPage: NextPage<Props> = ({ id, ssr }) => {
               '@md': {
                 px: '$5',
               },
+
+              '@xl': {
+                px: '$6',
+              },
             }}
           >
             <Flex

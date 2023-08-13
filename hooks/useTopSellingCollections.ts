@@ -57,10 +57,21 @@ export default function (
     }, {} as Record<string, (typeof collections)[0]>)
   }, [collections])
 
+  const combinedCollections = useMemo(() => {
+    return topSellingData?.collections?.map((collection) => {
+      return {
+        ...collection,
+        ...collectionsMap[collection.id as string],
+      }
+    })
+  }, [collections, topSellingData])
+
   return {
     ...topSellingSwr,
     collections: collectionsMap,
-    data: topSellingData,
+    data: {
+      collections: combinedCollections,
+    },
     isValidating:
       isValidatingCollections ||
       (!ids?.length && !collections.length) ||
