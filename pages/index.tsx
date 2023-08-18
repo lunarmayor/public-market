@@ -348,7 +348,11 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
                             }
                           />
                         </Button>
-                        <Button color="gray4" size="large">
+                        <Button
+                          color="gray4"
+                          css={{ background: 'white' }}
+                          size="large"
+                        >
                           Explore Collecion
                         </Button>
                       </Flex>
@@ -453,14 +457,16 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
                         </Text>
                       </Flex>
                     </Flex>
-                    <Button css={{ width: '100%', textAlign: 'center' }}>
-                      <Flex justify="center" css={{ width: '100%' }}>
-                        <Text style="h6" css={{ color: 'white' }}>
-                          Collect for{' '}
-                          {collection?.floorAsk?.price?.amount?.native} ETH
-                        </Text>
-                      </Flex>
-                    </Button>
+                    {false && (
+                      <Button css={{ width: '100%', textAlign: 'center' }}>
+                        <Flex justify="center" css={{ width: '100%' }}>
+                          <Text style="h6" css={{ color: 'white' }}>
+                            Collect for{' '}
+                            {collection?.floorAsk?.price?.amount?.native} ETH
+                          </Text>
+                        </Flex>
+                      </Button>
+                    )}
                   </Box>
                 </Box>
               )
@@ -562,20 +568,23 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
                         </Text>
                       </Flex>
                     </Flex>
-                    <Button css={{ width: '100%', textAlign: 'center' }}>
-                      <Flex justify="center" css={{ width: '100%' }}>
-                        <Text style="h6" css={{ color: 'white' }}>
-                          Mint
-                        </Text>
-                      </Flex>
-                    </Button>
+                    {false && (
+                      <Button css={{ width: '100%', textAlign: 'center' }}>
+                        <Flex justify="center" css={{ width: '100%' }}>
+                          <Text style="h6" css={{ color: 'white' }}>
+                            Mint
+                          </Text>
+                        </Flex>
+                      </Button>
+                    )}
                   </Box>
                 </Box>
               )
             })}
         </Box>
-        <Footer />
       </Box>
+
+      <Footer />
     </Layout>
   )
 }

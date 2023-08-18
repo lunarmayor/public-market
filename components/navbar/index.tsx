@@ -61,12 +61,7 @@ const Navbar = () => {
         <Flex align="center">
           <Link href={`/${routePrefix}`}>
             <Box css={{ width: 34, cursor: 'pointer' }}>
-              <Image
-                src="/reservoirLogo.svg"
-                width={34}
-                height={39}
-                alt="Reservoir"
-              />
+              <Image src="/door.svg" width={42} height={42} alt="Reservoir" />
             </Box>
           </Link>
         </Flex>
@@ -103,19 +98,14 @@ const Navbar = () => {
         css={{
           flex: 'unset',
           '@bp1300': {
-          flex: 1,
+            flex: 1,
           },
         }}
       >
         <Flex align="center">
           <Link href={`/`}>
             <Box css={{ cursor: 'pointer' }}>
-              <Image
-                src="/reservoirLogo.svg"
-                width={34}
-                height={39}
-                alt="Reservoir"
-              />
+              <Image src="/door.svg" width={42} height={42} alt="Reservoir" />
             </Box>
           </Link>
           <Flex
@@ -125,14 +115,20 @@ const Navbar = () => {
               ml: '$5',
             }}
           >
-            <Link href={`/${routePrefix}/collection-rankings`}>
+            <Link href={`/`}>
               <NavItem active={router.pathname.includes('collection-rankings')}>
                 Explore
               </NavItem>
             </Link>
             <Link href={`/${routePrefix}/collection-rankings`}>
               <NavItem active={router.pathname.includes('collection-rankings')}>
-                NFTs
+                Collections
+              </NavItem>
+            </Link>
+
+            <Link href={`/${routePrefix}/collection-rankings`}>
+              <NavItem active={router.pathname.includes('collection-rankings')}>
+                Mints
               </NavItem>
             </Link>
             {false && (
@@ -140,9 +136,6 @@ const Navbar = () => {
                 <NavItem active={router.pathname == '/swap'}>Swap</NavItem>
               </Link>
             )}
-            <Link href="https://docs.reservoir.tools/docs">
-              <NavItem active={false}>Developers</NavItem>
-            </Link>
           </Flex>
         </Flex>
       </Box>
@@ -166,7 +159,6 @@ const Navbar = () => {
         justify="end"
         align="center"
       >
-        <ThemeSwitcher />
         <CartButton />
         {isConnected ? (
           <AccountSidebar />

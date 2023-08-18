@@ -8,7 +8,7 @@ type SectionTitleProps = {
 }
 
 const SectionTitle: FC<SectionTitleProps> = ({ title }) => (
-  <Text style="subtitle1" css={{ color: '$gray12', mb: 8 }}>
+  <Text style="subtitle1" css={{ mb: 8 }}>
     {title}
   </Text>
 )
@@ -71,7 +71,8 @@ export const Footer = () => {
       css={{
         borderTop: '1px solid $gray7',
         borderStyle: 'solid',
-        pt: '$5',
+        p: '$5',
+
         flexDirection: 'column',
         alignItems: 'flex-start',
         gap: 36,

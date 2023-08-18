@@ -5,6 +5,7 @@ import {
   violetDark,
   slateDark,
   greenDark,
+  gray,
   green,
   violetDarkA,
   whiteA,
@@ -34,6 +35,7 @@ export const { createTheme, keyframes, styled, globalCss, getCssText } =
   createStitches({
     theme: {
       colors: {
+        ...gray,
         ...crimson,
         ...violet,
         ...violetA,
@@ -55,10 +57,10 @@ export const { createTheme, keyframes, styled, globalCss, getCssText } =
         primary6: '$violet6',
         primary7: '$violet7',
         primary8: '$violet8',
-        primary9: '$violet9',
-        primary10: '$violet10',
+        primary9: '$gray12',
+        primary10: '$gray11',
         primary11: '$violet11',
-        primary12: '$violet12',
+        primary12: '$gray12',
 
         //Secondary
         secondary1: '$violetA1',
@@ -75,18 +77,18 @@ export const { createTheme, keyframes, styled, globalCss, getCssText } =
         secondary12: '$violetA12',
 
         //Gray
-        gray1: '$slate1',
-        gray2: '$slate2',
-        gray3: '$slate3',
-        gray4: '$slate4',
-        gray5: '$slate5',
-        gray6: '$slate6',
-        gray7: '$slate7',
-        gray8: '$slate8',
-        gray9: '$slate9',
-        gray10: '$slate10',
-        gray11: '$slate11',
-        gray12: '$slate12',
+        // gray1: '$gray1',
+        // gray2: '$gray2',
+        // gray3: '$gray3',
+        // gray4: '$gray4',
+        // gray5: '$gray5',
+        // gray6: '$gray6',
+        // gray7: '$gray7',
+        // gray8: '$gray8',
+        // gray9: '$gray9',
+        // gray10: '$gray10',
+        // gray11: '$gray11',
+        //gray12: '$gray12',
 
         //Red
         red1: '$crimson1',
