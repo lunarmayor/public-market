@@ -197,7 +197,7 @@ export default [
     collectionSetId: process.env.NEXT_PUBLIC_ARBITRUM_NOVA_COLLECTION_SET_ID,
     community: process.env.NEXT_PUBLIC_ARBITRUM_NOVA_COMMUNITY,
   },
-  {
+  /* {
     ...optimism,
     name: 'Optimism',
     lightIconUrl: '/icons/optimism-icon-dark.svg',
@@ -209,8 +209,8 @@ export default [
     coingeckoId: 'optimism',
     collectionSetId: process.env.NEXT_PUBLIC_OPTIMISM_COLLECTION_SET_ID,
     community: process.env.NEXT_PUBLIC_OPTIMISM_COMMUNITY,
-  },
-  {
+  }, */
+  /* {
     ...zora,
     name: 'Zora',
     lightIconUrl: '/icons/zora-icon-dark.svg',
@@ -220,7 +220,7 @@ export default [
     routePrefix: 'zora',
     apiKey: process.env.RESERVOIR_API_KEY,
     coingeckoId: 'ethereum',
-  },
+  }, */
   //{
   //  ...bsc,
   //  lightIconUrl: '/icons/bsc-icon-dark.svg',
@@ -233,7 +233,7 @@ export default [
   //  collectionSetId: process.env.NEXT_PUBLIC_BSC_COLLECTION_SET_ID,
   //  community: process.env.NEXT_PUBLIC_BSC_COMMUNITY,
   //},
-  {
+  /* {
     ...base,
     lightIconUrl: '/icons/base-icon-dark.svg',
     darkIconUrl: '/icons/base-icon-light.svg',
@@ -244,7 +244,7 @@ export default [
     coingeckoId: 'ethereum',
     collectionSetId: process.env.NEXT_PUBLIC_BASE_COLLECTION_SET_ID,
     community: process.env.NEXT_PUBLIC_BASE_COMMUNITY,
-  },
+  }, */
   //{
   //  ...linea,
   //  lightIconUrl: '/icons/linea-icon-dark.svg',
