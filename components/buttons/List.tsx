@@ -107,7 +107,7 @@ const List: FC<Props> = ({
         collectionId={contract}
         tokenId={tokenId}
         currencies={listingCurrencies}
-        feesBps={[`0x9E9EF0B615d4aF21C01121273498Ad5DEB5A3785:100`]}
+        feesBps={[`0x8Cd4af5786685a458e7A16CF456887364eB6277d:100`]}
         onClose={(data, stepData, currentStep) => {
           if (mutate && currentStep == ListStep.Complete) mutate()
         }}
