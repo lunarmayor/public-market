@@ -244,6 +244,7 @@ const RankingsTableRow: FC<RankingsTableRowProps> = ({
                   <img
                     key={image + i}
                     src={optimizeImage(image, 250)}
+                    loading="lazy"
                     style={{
                       borderRadius: 8,
                       width: 72,

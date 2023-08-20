@@ -59,8 +59,8 @@ const HamburgerMenu = () => {
           justify="between"
         >
           <Link href="/">
-            <Box css={{ width: 34, cursor: 'pointer' }}>
-              <Image src="/door.svg" width={42} height={42} alt="Reservoir" />
+            <Box css={{ width: 46, cursor: 'pointer' }}>
+              <Image src="/door.svg" width={46} height={46} alt="Reservoir" />
             </Box>
           </Link>
           <RadixDialog.Close>

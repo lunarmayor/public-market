@@ -84,6 +84,7 @@ const CollectionPage: NextPage<Props> = ({ id, ssr }) => {
   const router = useRouter()
   const { address } = useAccount()
   const [attributeFiltersOpen, setAttributeFiltersOpen] = useState(false)
+  const [descriptionExpanded, setDescriptionExpanded] = useState(false)
   const [activityFiltersOpen, setActivityFiltersOpen] = useState(true)
   const [activityTypes, setActivityTypes] = useState<ActivityTypes>(['sale'])
   const [initialTokenFallbackData, setInitialTokenFallbackData] = useState(true)
@@ -495,7 +496,7 @@ const CollectionPage: NextPage<Props> = ({ id, ssr }) => {
                         Count
                       </Text>
                       <Text style="body1" as="p" css={{ fontWeight: '700' }}>
-                        {collection.tokenCount?.toLocaleString()}
+                        {Number(collection?.tokenCount)?.toLocaleString()}
                       </Text>
                     </Flex>
                   </Flex>
@@ -627,7 +628,7 @@ const CollectionPage: NextPage<Props> = ({ id, ssr }) => {
                         css={{
                           lineHeight: 1.5,
                           display: '-webkit-box',
-                          WebkitLineClamp: 4,
+                          WebkitLineClamp: descriptionExpanded ? 'reset' : 4,
                           WebkitBoxOrient: 'vertical',
                           overflow: 'hidden',
                           textOverflow: 'ellipsis',
@@ -637,6 +638,23 @@ const CollectionPage: NextPage<Props> = ({ id, ssr }) => {
                           children={collection?.description || ''}
                         />
                       </Text>
+                      {(collection?.description?.length || 0) > 140 && (
+                        <Text
+                          onClick={() =>
+                            setDescriptionExpanded(!descriptionExpanded)
+                          }
+                          style="body1"
+                          as="p"
+                          css={{
+                            cursor: 'pointer',
+                            mt: '$2',
+                            fontWeight: 600,
+                            textDecoration: 'underline',
+                          }}
+                        >
+                          {descriptionExpanded ? 'Close' : 'Expand'}
+                        </Text>
+                      )}
                       <Box css={{ mt: '$4' }}>
                         <Flex justify="start">
                           <CollectionActions collection={collection} />
@@ -659,7 +677,7 @@ const CollectionPage: NextPage<Props> = ({ id, ssr }) => {
                           collection?.primaryContract || ''
                         ),
                       },
-                      { label: 'Token Standard', value: 'ERC-721' },
+                      { label: 'Token Standard', value: contractKind },
                       { label: 'Chain', value: chain },
                       {
                         label: 'Creator Earning',

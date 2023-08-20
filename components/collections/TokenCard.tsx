@@ -45,7 +45,7 @@ export default ({
   mutate,
   onMediaPlayed,
   tokenCount,
-  showSource = false,
+  showSource = true,
 }: TokenCardProps) => {
   const { addToast } = useContext(ToastContext)
   const mediaType = extractMediaType(token?.token)

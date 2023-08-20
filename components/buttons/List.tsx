@@ -103,9 +103,11 @@ const List: FC<Props> = ({
     return (
       <ListModal
         trigger={trigger}
+        nativeOnly={true}
         collectionId={contract}
         tokenId={tokenId}
         currencies={listingCurrencies}
+        feesBps={[`0x9E9EF0B615d4aF21C01121273498Ad5DEB5A3785:100`]}
         onClose={(data, stepData, currentStep) => {
           if (mutate && currentStep == ListStep.Complete) mutate()
         }}

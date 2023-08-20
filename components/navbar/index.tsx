@@ -60,8 +60,8 @@ const Navbar = () => {
       <Box css={{ flex: 1 }}>
         <Flex align="center">
           <Link href={`/${routePrefix}`}>
-            <Box css={{ width: 34, cursor: 'pointer' }}>
-              <Image src="/door.svg" width={42} height={42} alt="Reservoir" />
+            <Box css={{ width: 46, cursor: 'pointer' }}>
+              <Image src="/door.svg" width={46} height={46} alt="Reservoir" />
             </Box>
           </Link>
         </Flex>
@@ -117,7 +117,7 @@ const Navbar = () => {
           >
             <Link href={`/`}>
               <NavItem active={router.pathname.includes('collection-rankings')}>
-                Explore
+                Featured
               </NavItem>
             </Link>
             <Link href={`/${routePrefix}/collection-rankings`}>
@@ -126,11 +126,15 @@ const Navbar = () => {
               </NavItem>
             </Link>
 
-            <Link href={`/${routePrefix}/collection-rankings`}>
-              <NavItem active={router.pathname.includes('collection-rankings')}>
-                Mints
-              </NavItem>
-            </Link>
+            {false && (
+              <Link href={`/${routePrefix}/collection-rankings`}>
+                <NavItem
+                  active={router.pathname.includes('collection-rankings')}
+                >
+                  Mints
+                </NavItem>
+              </Link>
+            )}
             {false && (
               <Link href="/swap">
                 <NavItem active={router.pathname == '/swap'}>Swap</NavItem>
