@@ -219,13 +219,15 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
                 borderRadius: 16,
                 //background: '$gray3',
                 backgroundSize: 'cover',
-                background:
+                border: `${topCollection?.banner ? 0 : 1}px solid $gray5`,
+                backgroundImage:
                   theme === 'light'
                     ? `url(${topCollection?.banner?.replace(
                         'w=500',
                         'w=4500'
                       )}) `
                     : '$gray3',
+                backgroundColor: '$gray5',
               }}
             >
               <Box
@@ -257,7 +259,10 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
                       }}
                     >
                       <StyledImage
-                        src={topCollection?.banner?.replace('w=500', 'w=4500')}
+                        src={
+                          topCollection?.banner?.replace('w=500', 'w=4500') ??
+                          topCollection?.image
+                        }
                         css={{
                           width: '100%',
                           borderRadius: 8,
