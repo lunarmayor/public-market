@@ -1,15 +1,9 @@
-import {
-  GetStaticPaths,
-  GetStaticProps,
-  InferGetStaticPropsType,
-  NextPage,
-} from 'next'
+import { GetStaticProps, InferGetStaticPropsType, NextPage } from 'next'
 import Link from 'next/link'
 import {
   Text,
   Flex,
   Box,
-  FormatCrypto,
   Button,
   FormatCryptoCurrency,
 } from 'components/primitives'
@@ -17,34 +11,21 @@ import Layout from 'components/Layout'
 import { paths } from '@reservoir0x/reservoir-sdk'
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { Footer } from 'components/home/Footer'
-import { useMediaQuery } from 'react-responsive'
 import { useMarketplaceChain, useMounted } from 'hooks'
 import supportedChains from 'utils/chains'
 import { Head } from 'components/Head'
 import { ChainContext } from 'context/ChainContextProvider'
-import { Dropdown, DropdownMenuItem } from 'components/primitives/Dropdown'
-import {
-  faBook,
-  faBookOpen,
-  faChevronDown,
-  faChevronRight,
-} from '@fortawesome/free-solid-svg-icons'
+import { faBook, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 
 import Img from 'components/primitives/Img'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useRouter } from 'next/router'
-import { ChainStats } from 'components/home/ChainStats'
 import useTopSellingCollections from 'hooks/useTopSellingCollections'
-import { CollectionTopSellingTable } from 'components/home/CollectionTopSellingTable'
-import { FillTypeToggle } from 'components/home/FillTypeToggle'
-import { TimeFilterToggle } from 'components/home/TimeFilterToggle'
 import ReactMarkdown from 'react-markdown'
 import fetcher from 'utils/fetcher'
 import { styled } from 'stitches.config'
 
 import { useTheme } from 'next-themes'
 import { useLocalStorage } from 'usehooks-ts'
-import next from 'next/types'
 import ChainToggle from 'components/common/ChainToggle'
 
 const StyledImage = styled('img', {})
@@ -54,11 +35,8 @@ type Props = InferGetStaticPropsType<typeof getStaticProps>
 const mintStartTime = Math.floor(new Date().getTime() / 1000) - 60 * 6 * 60
 
 const IndexPage: NextPage<Props> = ({ ssr }) => {
-  const isSSR = typeof window === 'undefined'
   const isMounted = useMounted()
-  const isSmallDevice = useMediaQuery({ maxWidth: 905 }) && isMounted
   const marketplaceChain = useMarketplaceChain()
-  const router = useRouter()
   const [fillType, setFillType] = useState<'mint' | 'sale' | 'any'>('sale')
   const [minutesFilter, setMinutesFilter] = useState<number>(1440)
 
@@ -101,21 +79,6 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
     },
     chain?.id
   )
-
-  /*   const { data: topSellingMintsData, collections: mintsData } =
-    useTopSellingCollections(
-      {
-        startTime: mintStartTime,
-        fillType: 'mint',
-        limit: 4,
-        includeRecentSales: true,
-      },
-      {
-        revalidateOnMount: true,
-        refreshInterval: 300000,
-      },
-      chain?.id
-    ) */
 
   const [topSellingCollections, setTopSellingCollections] =
     useState<ReturnType<typeof useTopSellingCollections>['data']>()
@@ -324,7 +287,7 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
                             borderRadius: 8,
                             border: '2px solid rgba(255,255,255,0.6)',
                           }}
-                          src={topCollection?.image}
+                          src={topCollection?.image as string}
                         />
                       </Box>
                     </Box>
@@ -551,7 +514,8 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
                           />
                         )}
                         <Img
-                          src={collection?.image}
+                          src={collection?.image as string}
+                          alt={collection?.name as string}
                           width={72}
                           height={72}
                           css={{

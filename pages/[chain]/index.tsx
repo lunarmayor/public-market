@@ -65,9 +65,8 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
     chain?.id
   )
 
-  const [topSellingCollections, setTopSellingCollections] = useState<
-    ReturnType<typeof useTopSellingCollections>['data']
-  >(ssr.topSellingCollections[marketplaceChain.id])
+  const [topSellingCollections, setTopSellingCollections] =
+    useState<ReturnType<typeof useTopSellingCollections>['data']>()
   const [collections, setCollections] =
     useState<ReturnType<typeof useTopSellingCollections>['collections']>(
       collectionsData
