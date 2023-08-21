@@ -32,12 +32,8 @@ const SectionLink: FC<SectionLinkProps> = ({ name, href }) => (
 
 const developerSectionLinks = [
   {
-    name: 'Docs',
-    href: 'https://docs.reservoir.tools/docs',
-  },
-  {
-    name: 'API Reference',
-    href: 'https://docs.reservoir.tools/reference/overview',
+    name: 'Intro Blog',
+    href: 'mirror.xyz',
   },
   {
     name: 'Github',
@@ -76,7 +72,7 @@ export const Footer = () => {
     >
       <Flex css={{ gap: 80, '@bp600': { gap: 136 } }}>
         <Flex direction="column">
-          <SectionTitle title="Developers" />
+          <SectionTitle title="Resources" />
           {developerSectionLinks.map((props) => (
             <SectionLink key={props.name} {...props} />
           ))}

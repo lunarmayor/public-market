@@ -473,7 +473,17 @@ const CollectionPage: NextPage<Props> = ({ id, ssr }) => {
                   </Flex>
 
                   {!isSmallDevice && <SelectedAttributes />}
-                  <Flex css={{ gap: '$4', mb: '$3' }}>
+                  <Flex
+                    css={{
+                      gap: '$4',
+                      mb: '$3',
+                      flexWrap: 'wrap',
+                      '@bp800': {
+                        display: 'flex',
+                      },
+                      display: 'flex',
+                    }}
+                  >
                     <Flex css={{ gap: '$1' }}>
                       <Text style="body1" as="p" color="subtle">
                         Floor
@@ -487,7 +497,7 @@ const CollectionPage: NextPage<Props> = ({ id, ssr }) => {
                         Top Bid
                       </Text>
                       <Text style="body1" as="p" css={{ fontWeight: '700' }}>
-                        {collection.topBid?.price?.amount?.native} ETH
+                        {collection.topBid?.price?.amount?.native || 0} WETH
                       </Text>
                     </Flex>
 
@@ -705,7 +715,7 @@ const CollectionPage: NextPage<Props> = ({ id, ssr }) => {
                 <Box
                   css={{
                     flex: 1,
-                    '@lg': { pl: '$5', ml: '$2', pt: '$2' },
+                    '@lg': { pl: '$5', ml: '$2', pt: '$2', pb: '$6' },
                   }}
                 >
                   <Text style="h7" as="h5" css={{ mb: '$3' }}>
@@ -773,8 +783,23 @@ const CollectionPage: NextPage<Props> = ({ id, ssr }) => {
                   )}
 
                   <Text style="h7" as="h5" css={{ mb: '$3', mt: '$5' }}>
-                    Top Sources
+                    Floor Tokens
                   </Text>
+
+                  {rareTokens.length > 0 ? (
+                    <ItemGrid>
+                      {tokens.slice(0, 4).map((token) => (
+                        <TokenCard
+                          showAsk={false}
+                          token={token}
+                          showSource={false}
+                          rarityEnabled={false}
+                        />
+                      ))}
+                    </ItemGrid>
+                  ) : (
+                    <Text>No Tokens</Text>
+                  )}
                 </Box>
               </Flex>
             </TabsContent>

@@ -138,7 +138,17 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
           >
             <Flex align="center" css={{ gap: '$4' }}>
               <FontAwesomeIcon icon={faBook} color="black" size="2x" />
-              <Text css={{ fontWeight: 700, opacity: 0.9 }} style="subtitle1">
+              <Text
+                css={{
+                  fontWeight: 700,
+                  opacity: 0.9,
+                  fontSize: '14px',
+                  '@md': {
+                    fontSize: '16px',
+                  },
+                }}
+                style="subtitle1"
+              >
                 Read about why we built this marketplace
               </Text>
             </Flex>
@@ -147,6 +157,10 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
                 size="large"
                 color="ghost"
                 css={{
+                  '@md': {
+                    display: 'block',
+                  },
+                  display: 'none',
                   outline: '1px solid rgba(0,0,0,0)',
                   opacity: 0,
                   transition:
@@ -168,6 +182,10 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
                 size="large"
                 color="gray3"
                 css={{
+                  display: 'none',
+                  '@md': {
+                    display: 'block',
+                  },
                   background: '$gray1',
                   outline: '1px solid rgba(0,0,0,0)',
                   transition:
@@ -427,7 +445,11 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
             </Flex>
           </Flex>
         </Link>
-        <Flex justify="between" align="center" css={{ mb: '$4' }}>
+        <Flex
+          justify="between"
+          align="center"
+          css={{ flexWrap: 'wrap', mb: '$4', gap: '$3' }}
+        >
           <Text style="h4" as="h4">
             Trending Collections
           </Text>
