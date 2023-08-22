@@ -61,7 +61,12 @@ const Navbar = () => {
         <Flex align="center">
           <Link href={`/${routePrefix}`}>
             <Box css={{ width: 46, cursor: 'pointer' }}>
-              <Image src="/door.svg" width={46} height={46} alt="Reservoir" />
+              <Image
+                src="/reservoirLogo.svg"
+                width={36}
+                height={36}
+                alt="Reservoir"
+              />
             </Box>
           </Link>
         </Flex>
@@ -105,7 +110,12 @@ const Navbar = () => {
         <Flex align="center">
           <Link href={`/`}>
             <Box css={{ cursor: 'pointer' }}>
-              <Image src="/door.svg" width={42} height={42} alt="Reservoir" />
+              <Image
+                src="/reservoirLogo.svg"
+                width={36}
+                height={36}
+                alt="Reservoir"
+              />
             </Box>
           </Link>
           <Flex
@@ -163,6 +173,7 @@ const Navbar = () => {
         justify="end"
         align="center"
       >
+        <ThemeSwitcher />
         <CartButton />
         {isConnected ? (
           <AccountSidebar />

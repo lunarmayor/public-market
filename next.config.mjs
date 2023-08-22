@@ -23,11 +23,11 @@ const nextConfig = {
   },
   async redirects() {
     return [
-      //{
-      //  source: '/',
-      //  destination: `/${defaultChain.routePrefix}`,
-      //  permanent: false,
-      //},
+      {
+        source: '/',
+        destination: `/${defaultChain.routePrefix}`,
+        permanent: false,
+      },
       {
         source: '/collection/:chain/:collection',
         destination: '/:chain/collection/:collection',

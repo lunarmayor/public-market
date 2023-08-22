@@ -38,6 +38,7 @@ import LoadingCard from 'components/common/LoadingCard'
 import { useMounted } from 'hooks'
 import { NORMALIZE_ROYALTIES } from 'pages/_app'
 import {
+  faCog,
   faHand,
   faMagnifyingGlass,
   faSeedling,
@@ -299,6 +300,7 @@ const CollectionPage: NextPage<Props> = ({ id, ssr }) => {
                         <Flex
                           align="center"
                           css={{
+                            ml: '$3',
                             borderRadius: 4,
                             px: '$3',
                             py: 7,
@@ -316,6 +318,26 @@ const CollectionPage: NextPage<Props> = ({ id, ssr }) => {
                           <Text style="body3">Minting Now</Text>
                         </Flex>
                       ) : null}
+                      <Flex
+                        align="center"
+                        css={{
+                          ml: '$3',
+                          borderRadius: 4,
+                          px: '$3',
+                          py: 7,
+                          backgroundColor: '$gray3',
+                          gap: '$3',
+                        }}
+                      >
+                        <Flex
+                          css={{
+                            color: '$primary9',
+                          }}
+                        >
+                          <FontAwesomeIcon icon={faCog} />
+                        </Flex>
+                        <Text style="body3">{contractKind}</Text>
+                      </Flex>
                     </Flex>
                     <Text as="p" style="body2" color="subtle" css={{ mt: -4 }}>
                       {truncateAddress(collection?.primaryContract || '')}
@@ -349,10 +371,28 @@ const CollectionPage: NextPage<Props> = ({ id, ssr }) => {
                     <Mint
                       collectionId={collection.id}
                       buttonChildren={
-                        <>
-                          <FontAwesomeIcon icon={faSeedling} />
-                          {isSmallDevice ? 'Mint' : `Mint for ${mintPrice}`}
-                        </>
+                        <Flex
+                          css={{ gap: '$2', px: '$4' }}
+                          align="center"
+                          justify="center"
+                        >
+                          {isSmallDevice && (
+                            <FontAwesomeIcon icon={faSeedling} />
+                          )}
+                          <Text style="h6" as="h6" css={{ color: '$bg' }}>
+                            {isSmallDevice ? 'Mint' : 'Mint for'}
+                          </Text>
+
+                          {!isSmallDevice && (
+                            <Text
+                              style="h6"
+                              as="h6"
+                              css={{ color: '$bg', fontWeight: 900 }}
+                            >
+                              {`${mintPrice}`}
+                            </Text>
+                          )}
+                        </Flex>
                       }
                       buttonCss={{
                         minWidth: 'max-content',
@@ -363,7 +403,7 @@ const CollectionPage: NextPage<Props> = ({ id, ssr }) => {
                         px: '$2',
                         maxWidth: '220px',
                         '@md': {
-                          order: 2,
+                          order: 1,
                           px: '$5',
                         },
                       }}
