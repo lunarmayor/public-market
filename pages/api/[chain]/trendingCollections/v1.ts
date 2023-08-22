@@ -3,9 +3,8 @@ import { kv } from '@vercel/kv'
 
 import supportedChains, { DefaultChain } from 'utils/chains'
 
-const startTime = Math.floor(new Date().getTime() / 1000) - 60 * 6 * 60
-
 async function fetchAndCacheTrendingCollections(chainPrefix: string) {
+  const startTime = Math.floor(new Date().getTime() / 1000) - 60 * 6 * 60
   try {
     const chain =
       supportedChains.find((chain) => chain.routePrefix === chainPrefix) ||
