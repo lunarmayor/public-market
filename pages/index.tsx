@@ -19,7 +19,7 @@ import { faBook, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 
 import Img from 'components/primitives/Img'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import useTopSellingCollections from 'hooks/useTopSellingCollections'
+import useTrendingCollections from 'hooks/useTrendingCollections'
 import ReactMarkdown from 'react-markdown'
 import fetcher from 'utils/fetcher'
 import { styled } from 'stitches.config'
@@ -53,48 +53,20 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
 
   const { chain, switchCurrentChain } = useContext(ChainContext)
 
-  const startTime = useMemo(() => {
-    const now = new Date()
-    const timestamp = Math.floor(now.getTime() / 1000)
-    return timestamp - minutesFilter * 60
-  }, [minutesFilter])
-
   const {
     data: topSellingCollectionsData,
     collections: collectionsData,
     isValidating,
-  } = useTopSellingCollections(
-    {
-      startTime,
-      fillType,
-      limit: 9,
-      includeRecentSales: true,
-    },
+  } = useTrendingCollections(
+    {},
     {
       revalidateOnMount: true,
       refreshInterval: 300000,
-      fallbackData: [
-        ssr.topSellingCollections[marketplaceChain.id].collections,
-      ],
     },
     chain?.id
   )
 
-  const [topSellingCollections, setTopSellingCollections] =
-    useState<ReturnType<typeof useTopSellingCollections>['data']>()
-  const [collections, setCollections] =
-    useState<ReturnType<typeof useTopSellingCollections>['collections']>(
-      collectionsData
-    )
-
-  useEffect(() => {
-    if (!isValidating) {
-      setTopSellingCollections(topSellingCollectionsData)
-      setCollections(collectionsData)
-    }
-  }, [isValidating])
-
-  const topCollection = topSellingCollections?.collections?.[0]
+  const topCollection = topSellingCollectionsData?.collections?.[0]
 
   return (
     <Layout>
@@ -157,10 +129,10 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
                 size="large"
                 color="ghost"
                 css={{
+                  display: 'none',
                   '@md': {
                     display: 'block',
                   },
-                  display: 'none',
                   outline: '1px solid rgba(0,0,0,0)',
                   opacity: 0,
                   transition:
@@ -262,8 +234,8 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
                 }}
               />
 
-              {topSellingCollections?.collections &&
-                topSellingCollections.collections.length &&
+              {topSellingCollectionsData?.collections &&
+                topSellingCollectionsData.collections.length &&
                 topCollection && (
                   <>
                     <Box
@@ -471,162 +443,167 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
             },
           }}
         >
-          {topSellingCollections?.collections &&
-            topSellingCollections.collections.length &&
-            topSellingCollections.collections.slice(1, 9).map((collection) => {
-              return (
-                <Link
-                  href={`/${marketplaceChain.routePrefix}/collection/${collection.id}`}
-                  style={{ display: 'grid' }}
-                >
-                  <Flex
-                    direction="column"
-                    css={{
-                      flex: 1,
-                      width: '100%',
-                      borderRadius: 12,
-                      cursor: 'pointer',
-                      height: '100%',
-                      background: '$neutralBgSubtle',
-                      $$shadowColor: '$colors$panelShadow',
-                      boxShadow: '0 0px 12px 0px $$shadowColor',
-
-                      overflow: 'hidden',
-                      position: 'relative',
-                      p: '$3',
-                      '&:hover > div > div> img:nth-child(1)': {
-                        transform: 'scale(1.075)',
-                      },
-                    }}
+          {topSellingCollectionsData?.collections &&
+            topSellingCollectionsData.collections.length &&
+            topSellingCollectionsData.collections
+              .slice(1, 9)
+              .map((collection) => {
+                return (
+                  <Link
+                    href={`/${marketplaceChain.routePrefix}/collection/${collection.id}`}
+                    style={{ display: 'grid' }}
                   >
                     <Flex
                       direction="column"
                       css={{
-                        zIndex: 2,
-                        position: 'relative',
                         flex: 1,
                         width: '100%',
+                        borderRadius: 12,
+                        cursor: 'pointer',
+                        height: '100%',
+                        background: '$neutralBgSubtle',
+                        $$shadowColor: '$colors$panelShadow',
+                        boxShadow: '0 0px 12px 0px $$shadowColor',
+
+                        overflow: 'hidden',
+                        position: 'relative',
+                        p: '$3',
+                        '&:hover > div > div> img:nth-child(1)': {
+                          transform: 'scale(1.075)',
+                        },
                       }}
                     >
-                      <Box
+                      <Flex
+                        direction="column"
                         css={{
+                          zIndex: 2,
                           position: 'relative',
-                          overflow: 'hidden',
-                          borderRadius: 8,
+                          flex: 1,
+                          width: '100%',
                         }}
                       >
-                        {collection?.banner?.length ||
-                        collection.recentSales?.[0].token?.image?.length ? (
-                          <img
-                            src={
-                              collection?.banner?.replace('w=500', 'w=1200') ??
-                              collection.recentSales?.[0].token?.image
-                            }
-                            style={{
-                              transition: 'transform 300ms ease-in-out',
-                              width: '100%',
-                              borderRadius: 8,
-                              height: 250,
-                              objectFit: 'cover',
-                            }}
-                          />
-                        ) : (
-                          <Box
-                            css={{
-                              width: '100%',
-                              borderRadius: 8,
-                              height: 250,
-                              background: '$gray3',
-                            }}
-                          />
-                        )}
-                        <Img
-                          src={collection?.image as string}
-                          alt={collection?.name as string}
-                          width={72}
-                          height={72}
+                        <Box
                           css={{
-                            width: 72,
-                            height: 72,
-                            border: '2px solid rgba(255,255,255,0.6)',
-                            position: 'absolute',
-                            bottom: '$3',
-                            left: '$3',
+                            position: 'relative',
+                            overflow: 'hidden',
                             borderRadius: 8,
                           }}
-                        />
-                      </Box>
-                      <Flex
-                        css={{ my: '$4', mb: '$2' }}
-                        justify="between"
-                        align="center"
-                      >
-                        <Text style="h5" as="h5" ellipsify css={{ flex: 1 }}>
-                          {collection?.name}
-                        </Text>
-                      </Flex>
-
-                      <Text
-                        style="body1"
-                        as="p"
-                        css={{
-                          maxWidth: 720,
-                          lineHeight: 1.5,
-                          flex: 1,
-                          display: '-webkit-box',
-                          WebkitLineClamp: 3,
-                          WebkitBoxOrient: 'vertical',
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis',
-                        }}
-                      >
-                        <ReactMarkdown
-                          children={collection?.description || ''}
-                        />
-                      </Text>
-
-                      <Flex css={{ mt: '$4' }}>
-                        <Box css={{ mr: '$5' }}>
-                          <Text style="subtitle2" color="subtle">
-                            FLOOR
-                          </Text>
-                          <FormatCryptoCurrency
-                            css={{ mt: '$1' }}
-                            amount={
-                              collection?.floorAsk?.price?.amount?.native ?? 0
-                            }
-                            textStyle={'h6'}
-                            logoHeight={20}
-                            address={
-                              collection?.floorAsk?.price?.currency?.contract
-                            }
+                        >
+                          {collection?.banner?.length ||
+                          collection.recentSales?.[0].token?.image?.length ? (
+                            <img
+                              src={
+                                collection?.banner?.replace(
+                                  'w=500',
+                                  'w=1200'
+                                ) ?? collection.recentSales?.[0].token?.image
+                              }
+                              style={{
+                                transition: 'transform 300ms ease-in-out',
+                                width: '100%',
+                                borderRadius: 8,
+                                height: 250,
+                                objectFit: 'cover',
+                              }}
+                            />
+                          ) : (
+                            <Box
+                              css={{
+                                width: '100%',
+                                borderRadius: 8,
+                                height: 250,
+                                background: '$gray3',
+                              }}
+                            />
+                          )}
+                          <Img
+                            src={collection?.image as string}
+                            alt={collection?.name as string}
+                            width={72}
+                            height={72}
+                            css={{
+                              width: 72,
+                              height: 72,
+                              border: '2px solid rgba(255,255,255,0.6)',
+                              position: 'absolute',
+                              bottom: '$3',
+                              left: '$3',
+                              borderRadius: 8,
+                            }}
                           />
                         </Box>
+                        <Flex
+                          css={{ my: '$4', mb: '$2' }}
+                          justify="between"
+                          align="center"
+                        >
+                          <Text style="h5" as="h5" ellipsify css={{ flex: 1 }}>
+                            {collection?.name}
+                          </Text>
+                        </Flex>
 
-                        <Box css={{ mr: '$4' }}>
-                          <Text style="subtitle2" color="subtle">
-                            24H SALES
-                          </Text>
-                          <Text style="h6" as="h4" css={{ mt: 2 }}>
-                            {collection.count?.toLocaleString()}
-                          </Text>
-                        </Box>
-                      </Flex>
-                      {false && (
-                        <Button css={{ width: '100%', textAlign: 'center' }}>
-                          <Flex justify="center" css={{ width: '100%' }}>
-                            <Text style="h6" css={{ color: 'white' }}>
-                              Collect for{' '}
-                              {collection?.floorAsk?.price?.amount?.native} ETH
+                        <Text
+                          style="body1"
+                          as="p"
+                          css={{
+                            maxWidth: 720,
+                            lineHeight: 1.5,
+                            flex: 1,
+                            display: '-webkit-box',
+                            WebkitLineClamp: 3,
+                            WebkitBoxOrient: 'vertical',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                          }}
+                        >
+                          <ReactMarkdown
+                            children={collection?.description || ''}
+                          />
+                        </Text>
+
+                        <Flex css={{ mt: '$4' }}>
+                          <Box css={{ mr: '$5' }}>
+                            <Text style="subtitle2" color="subtle">
+                              FLOOR
                             </Text>
-                          </Flex>
-                        </Button>
-                      )}
+                            <FormatCryptoCurrency
+                              css={{ mt: '$1' }}
+                              amount={
+                                collection?.floorAsk?.price?.amount?.native ?? 0
+                              }
+                              textStyle={'h6'}
+                              logoHeight={20}
+                              address={
+                                collection?.floorAsk?.price?.currency?.contract
+                              }
+                            />
+                          </Box>
+
+                          <Box css={{ mr: '$4' }}>
+                            <Text style="subtitle2" color="subtle">
+                              24H SALES
+                            </Text>
+                            <Text style="h6" as="h4" css={{ mt: 2 }}>
+                              {collection.count?.toLocaleString()}
+                            </Text>
+                          </Box>
+                        </Flex>
+                        {false && (
+                          <Button css={{ width: '100%', textAlign: 'center' }}>
+                            <Flex justify="center" css={{ width: '100%' }}>
+                              <Text style="h6" css={{ color: 'white' }}>
+                                Collect for{' '}
+                                {collection?.floorAsk?.price?.amount?.native}{' '}
+                                ETH
+                              </Text>
+                            </Flex>
+                          </Button>
+                        )}
+                      </Flex>
                     </Flex>
-                  </Flex>
-                </Link>
-              )
-            })}
+                  </Link>
+                )
+              })}
         </Box>
         <Box css={{ my: '$5' }}>
           <Link href={`/${marketplaceChain.routePrefix}/collection-rankings`}>
@@ -648,48 +625,5 @@ type ChainTopSellingCollections = Record<string, TopSellingCollectionsSchema>
 type CollectionSchema =
   paths['/collections/v5']['get']['responses']['200']['schema']
 type ChainCollections = Record<string, CollectionSchema>
-
-export const getStaticProps: GetStaticProps<{
-  ssr: {
-    topSellingCollections: ChainTopSellingCollections
-  }
-}> = async () => {
-  const now = new Date()
-  const timestamp = Math.floor(now.getTime() / 1000)
-  const startTime = timestamp - 1440 * 60 // 24hrs ago
-
-  let topSellingCollectionsQuery: paths['/collections/top-selling/v1']['get']['parameters']['query'] =
-    {
-      startTime: startTime,
-      fillType: 'sale',
-      limit: 20,
-      includeRecentSales: true,
-    }
-
-  const promises: ReturnType<typeof fetcher>[] = []
-  supportedChains.forEach((chain) => {
-    const query = { ...topSellingCollectionsQuery }
-
-    promises.push(
-      fetcher(`${chain.reservoirBaseUrl}/collections/top-selling/v1`, query, {
-        headers: {
-          'x-api-key': chain.apiKey || '',
-        },
-      })
-    )
-  })
-  const responses = await Promise.allSettled(promises)
-  const topSellingCollections: ChainTopSellingCollections = {}
-  responses.forEach((response, i) => {
-    if (response.status === 'fulfilled') {
-      topSellingCollections[supportedChains[i].id] = response.value.data
-    }
-  })
-
-  return {
-    props: { ssr: { topSellingCollections } },
-    revalidate: 5,
-  }
-}
 
 export default IndexPage

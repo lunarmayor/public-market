@@ -2,6 +2,7 @@ import { ListModal, ListStep, useTokens } from '@reservoir0x/reservoir-kit-ui'
 import { Button } from 'components/primitives'
 import {
   cloneElement,
+  useState,
   ComponentProps,
   ComponentPropsWithoutRef,
   FC,
@@ -44,6 +45,9 @@ const List: FC<Props> = ({
   const { isDisconnected } = useAccount()
   const { openConnectModal } = useConnectModal()
   const { addToast } = useContext(ToastContext)
+  const [isOpen, setIsOpen] = useState(false)
+
+  const [fee, setFee] = useState(100)
 
   const marketplaceChain = useMarketplaceChain()
   const { switchNetworkAsync } = useSwitchNetwork({
@@ -79,7 +83,14 @@ const List: FC<Props> = ({
   const contract = token?.token?.contract
 
   const trigger = (
-    <Button css={buttonCss} color="primary" {...buttonProps}>
+    <Button
+      css={buttonCss}
+      color="primary"
+      {...buttonProps}
+      onClick={() => {
+        setIsOpen(true)
+      }}
+    >
       {buttonChildren}
     </Button>
   )
@@ -103,12 +114,15 @@ const List: FC<Props> = ({
     return (
       <ListModal
         trigger={trigger}
+        openState={[isOpen, setIsOpen]}
         nativeOnly={true}
         collectionId={contract}
         tokenId={tokenId}
+        enableOnChainRoyalties={true}
         currencies={listingCurrencies}
-        feesBps={[`0x8Cd4af5786685a458e7A16CF456887364eB6277d:100`]}
+        feesBps={[`0x8Cd4af5786685a458e7A16CF456887364eB6277d:${fee}`]}
         onClose={(data, stepData, currentStep) => {
+          setIsOpen(false)
           if (mutate && currentStep == ListStep.Complete) mutate()
         }}
         onListingError={(err: any) => {
