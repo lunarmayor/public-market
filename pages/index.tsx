@@ -207,7 +207,7 @@ const IndexPage: NextPage<any> = ({ ssr }) => {
                 borderRadius: 16,
                 //background: '$gray3',
                 backgroundSize: 'cover',
-                border: `${topCollection?.banner ? 1 : 0}px solid $gray5`,
+                border: `1px solid $gray5`,
                 backgroundImage:
                   theme === 'light'
                     ? `url(${topCollection?.banner?.replace(
