@@ -30,11 +30,9 @@ import ChainToggle from 'components/common/ChainToggle'
 
 const StyledImage = styled('img', {})
 
-type Props = InferGetStaticPropsType<typeof getStaticProps>
-
 const mintStartTime = Math.floor(new Date().getTime() / 1000) - 60 * 6 * 60
 
-const IndexPage: NextPage<Props> = ({ ssr }) => {
+const IndexPage: NextPage<any> = ({ ssr }) => {
   const isMounted = useMounted()
   const marketplaceChain = useMarketplaceChain()
   const [fillType, setFillType] = useState<'mint' | 'sale' | 'any'>('sale')
@@ -364,7 +362,7 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
                             >
                               {topCollection?.recentSales
                                 ?.slice(0, 3)
-                                ?.map((sale) => (
+                                ?.map((sale: any) => (
                                   <Box css={{ flex: 1, aspectRatio: '1/1' }}>
                                     <img
                                       style={{ borderRadius: 4 }}
@@ -447,7 +445,7 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
             topSellingCollectionsData.collections.length &&
             topSellingCollectionsData.collections
               .slice(1, 9)
-              .map((collection) => {
+              .map((collection: any) => {
                 return (
                   <Link
                     href={`/${marketplaceChain.routePrefix}/collection/${collection.id}`}

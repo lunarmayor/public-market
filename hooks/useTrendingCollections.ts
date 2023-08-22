@@ -23,8 +23,7 @@ export default function (
       : client?.currentChain()
   console.log(chain)
 
-  const { routePrefix } = supportedChains.find((c) => c.id === chain.id) as any
-  console.log(routePrefix)
+  const { routePrefix } = supportedChains.find((c) => c.id === chain?.id) as any
 
   const { data: topSellingData, ...topSellingSwr } = useSWR<any>(
     routePrefix ? `/api/${routePrefix}/trendingCollections/v1` : null,
